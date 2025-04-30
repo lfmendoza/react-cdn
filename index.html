@@ -14,46 +14,291 @@
     ></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
+      :root {
+        --primary-color: #4a6fa5;
+        --secondary-color: #166088;
+        --accent-color: #4caf50;
+        --text-color: #333;
+        --light-bg: #f8f9fa;
+        --border-color: #ddd;
+        --danger-color: #dc3545;
+        --warning-color: #ffc107;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
       body {
-        font-family: Arial, sans-serif;
-        max-width: 600px;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: #f0f2f5;
+        max-width: 800px;
         margin: 0 auto;
         padding: 20px;
       }
-      .comment-form {
+
+      .container {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 25px;
         margin-bottom: 20px;
-        border: 1px solid #ddd;
-        padding: 15px;
+      }
+
+      h1 {
+        color: var(--primary-color);
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 2rem;
+      }
+
+      h2 {
+        color: var(--secondary-color);
+        margin-bottom: 15px;
+        font-size: 1.5rem;
+        border-bottom: 2px solid var(--border-color);
+        padding-bottom: 5px;
+      }
+
+      /* Auth Styles */
+      .auth-container {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+      }
+
+      .user-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        background-color: var(--light-bg);
         border-radius: 5px;
-        background-color: #f9f9f9;
+        margin-bottom: 10px;
       }
-      .comment-form input {
-        width: 70%;
+
+      .login-form {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+
+      .login-form input {
+        flex-grow: 1;
         padding: 8px;
-        margin-right: 10px;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
       }
-      .comment-form button {
+
+      .comment-form {
+        background-color: var(--light-bg);
+        border-radius: 5px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        font-family: inherit;
+        font-size: 14px;
+      }
+
+      .form-group textarea {
+        min-height: 100px;
+        resize: vertical;
+      }
+
+      .error-message {
+        color: var(--danger-color);
+        font-size: 0.8rem;
+        margin-top: 5px;
+      }
+
+      .char-counter {
+        font-size: 0.8rem;
+        text-align: right;
+        color: #666;
+      }
+
+      .counter-warning {
+        color: var(--warning-color);
+      }
+
+      .counter-danger {
+        color: var(--danger-color);
+      }
+
+      .btn {
         padding: 8px 15px;
-        background-color: #4caf50;
-        color: white;
         border: none;
         border-radius: 4px;
         cursor: pointer;
+        font-weight: 500;
+        transition: background-color 0.2s;
       }
-      .comment-form button:hover {
-        background-color: #45a049;
+
+      .btn-primary {
+        background-color: var(--primary-color);
+        color: white;
       }
+
+      .btn-primary:hover {
+        background-color: #3a5a82;
+      }
+
+      .btn-success {
+        background-color: var(--accent-color);
+        color: white;
+      }
+
+      .btn-success:hover {
+        background-color: #3d8b40;
+      }
+
+      .btn-danger {
+        background-color: var(--danger-color);
+        color: white;
+      }
+
+      .btn-danger:hover {
+        background-color: #bd2130;
+      }
+
+      .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+      }
+
+      .btn-secondary:hover {
+        background-color: #5a6268;
+      }
+
       .comment-list {
         margin-top: 20px;
       }
+
       .comment-item {
-        padding: 10px;
-        border-bottom: 1px solid #eee;
+        background-color: white;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 15px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        position: relative;
+      }
+
+      .comment-header {
+        display: flex;
+        justify-content: space-between;
         margin-bottom: 10px;
       }
-      h1,
-      h2 {
-        color: #333;
+
+      .comment-author {
+        font-weight: bold;
+        color: var(--primary-color);
+      }
+
+      .comment-timestamp {
+        font-size: 0.8rem;
+        color: #777;
+      }
+
+      .comment-content {
+        margin-bottom: 10px;
+        word-wrap: break-word;
+      }
+
+      .comment-actions {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+      }
+
+      .edit-form {
+        margin-top: 10px;
+      }
+
+      .edit-form textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        margin-bottom: 10px;
+        min-height: 80px;
+      }
+
+      .edit-actions {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+      }
+
+      .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        gap: 5px;
+      }
+
+      .page-item {
+        padding: 5px 10px;
+        border: 1px solid var(--border-color);
+        border-radius: 3px;
+        cursor: pointer;
+        background-color: white;
+      }
+
+      .page-item.active {
+        background-color: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+      }
+
+      .page-item:hover:not(.active) {
+        background-color: #f0f0f0;
+      }
+
+      .page-item.disabled {
+        color: #aaa;
+        cursor: not-allowed;
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 30px;
+        color: #666;
+      }
+
+      @media (max-width: 768px) {
+        body {
+          padding: 10px;
+        }
+
+        .container {
+          padding: 15px;
+        }
+
+        .comment-header {
+          flex-direction: column;
+          gap: 5px;
+        }
       }
     </style>
   </head>
@@ -61,64 +306,431 @@
     <div id="root"></div>
 
     <script type="text/babel">
-      function CommentForm({ onAddComment }) {
+      function useLocalStorage(key, initialValue) {
+        const [storedValue, setStoredValue] = React.useState(() => {
+          try {
+            const item = window.localStorage.getItem(key);
+            return item ? JSON.parse(item) : initialValue;
+          } catch (error) {
+            console.log(error);
+            return initialValue;
+          }
+        });
+
+        const setValue = (value) => {
+          try {
+            const valueToStore =
+              value instanceof Function ? value(storedValue) : value;
+            setStoredValue(valueToStore);
+            window.localStorage.setItem(key, JSON.stringify(valueToStore));
+          } catch (error) {
+            console.log(error);
+          }
+        };
+
+        return [storedValue, setValue];
+      }
+
+      function AuthComponent({ onLogin, onLogout, currentUser }) {
+        const [username, setUsername] = React.useState("");
+
+        const handleSubmit = (e) => {
+          e.preventDefault();
+          if (username.trim().length >= 3) {
+            onLogin(username);
+            setUsername("");
+          }
+        };
+
+        return (
+          <div className="auth-container container">
+            {currentUser ? (
+              <div className="user-info">
+                <span>
+                  Conectado como <strong>{currentUser}</strong>
+                </span>
+                <button className="btn btn-secondary" onClick={onLogout}>
+                  Cerrar sesión
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="login-form">
+                <input
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Tu nombre (min. 3 caracteres)"
+                  minLength="3"
+                  required
+                />
+                <button type="submit" className="btn btn-primary">
+                  Identificarse
+                </button>
+              </form>
+            )}
+          </div>
+        );
+      }
+
+      function CommentForm({ onAddComment, currentUser }) {
         const [commentText, setCommentText] = React.useState("");
+        const [errors, setErrors] = React.useState({});
+        const MAX_LENGTH = 500;
+
+        const validateComment = () => {
+          const newErrors = {};
+
+          if (!commentText.trim()) {
+            newErrors.commentText = "El comentario no puede estar vacío";
+          } else if (commentText.trim().length < 5) {
+            newErrors.commentText =
+              "El comentario debe tener al menos 5 caracteres";
+          } else if (commentText.length > MAX_LENGTH) {
+            newErrors.commentText = `El comentario no puede superar los ${MAX_LENGTH} caracteres`;
+          }
+
+          setErrors(newErrors);
+          return Object.keys(newErrors).length === 0;
+        };
 
         const handleInputChange = (e) => {
           setCommentText(e.target.value);
+          if (errors.commentText) {
+            setErrors({});
+          }
         };
 
         const handleSubmit = (e) => {
           e.preventDefault();
 
-          if (commentText.trim() !== "") {
-            onAddComment(commentText);
+          if (validateComment()) {
+            const newComment = {
+              id: Date.now(),
+              text: commentText.trim(),
+              author: currentUser || "Anónimo",
+              timestamp: new Date().toISOString(),
+              edited: false,
+            };
+
+            onAddComment(newComment);
             setCommentText("");
           }
         };
 
+        const getCounterClass = () => {
+          const length = commentText.length;
+          if (length > MAX_LENGTH) return "counter-danger";
+          if (length > MAX_LENGTH * 0.8) return "counter-warning";
+          return "";
+        };
+
         return (
-          <div className="comment-form">
+          <div className="comment-form container">
             <h2>Añadir nuevo comentario</h2>
+
+            {!currentUser && (
+              <div className="error-message" style={{ marginBottom: "10px" }}>
+                Identifícate para que tus comentarios lleven tu nombre
+              </div>
+            )}
+
             <form onSubmit={handleSubmit}>
-              <input
-                type="text"
-                value={commentText}
-                onChange={handleInputChange}
-                placeholder="Escribe tu comentario aquí..."
-              />
-              <button type="submit">Enviar comentario</button>
+              <div className="form-group">
+                <textarea
+                  value={commentText}
+                  onChange={handleInputChange}
+                  placeholder="Escribe tu comentario aquí..."
+                  disabled={!currentUser}
+                />
+                {errors.commentText && (
+                  <div className="error-message">{errors.commentText}</div>
+                )}
+                <div className={`char-counter ${getCounterClass()}`}>
+                  {commentText.length}/{MAX_LENGTH}
+                </div>
+              </div>
+              <button
+                type="submit"
+                className="btn btn-success"
+                disabled={!currentUser}
+              >
+                Enviar comentario
+              </button>
             </form>
           </div>
         );
       }
 
-      function CommentItem({ text, index }) {
+      function CommentItem({ comment, onEdit, onDelete, currentUser }) {
+        const [isEditing, setIsEditing] = React.useState(false);
+        const [editText, setEditText] = React.useState(comment.text);
+        const MAX_LENGTH = 500;
+
+        const handleSaveEdit = () => {
+          if (editText.trim().length >= 5 && editText.length <= MAX_LENGTH) {
+            onEdit(comment.id, editText);
+            setIsEditing(false);
+          }
+        };
+
+        const handleCancelEdit = () => {
+          setEditText(comment.text);
+          setIsEditing(false);
+        };
+
+        const formattedDate = new Date(comment.timestamp).toLocaleString();
+
+        const isAuthor = currentUser === comment.author;
+
         return (
           <div className="comment-item">
-            <strong>Comentario #{index + 1}:</strong> {text}
+            <div className="comment-header">
+              <span className="comment-author">{comment.author}</span>
+              <span className="comment-timestamp">
+                {formattedDate}
+                {comment.edited && " (editado)"}
+              </span>
+            </div>
+
+            {isEditing ? (
+              <div className="edit-form">
+                <textarea
+                  value={editText}
+                  onChange={(e) => setEditText(e.target.value)}
+                />
+                <div
+                  className={`char-counter ${
+                    editText.length > MAX_LENGTH ? "counter-danger" : ""
+                  }`}
+                >
+                  {editText.length}/{MAX_LENGTH}
+                </div>
+                <div className="edit-actions">
+                  <button
+                    className="btn btn-secondary"
+                    onClick={handleCancelEdit}
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    className="btn btn-success"
+                    onClick={handleSaveEdit}
+                    disabled={
+                      editText.trim().length < 5 || editText.length > MAX_LENGTH
+                    }
+                  >
+                    Guardar
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <>
+                <div className="comment-content">{comment.text}</div>
+
+                {isAuthor && (
+                  <div className="comment-actions">
+                    <button
+                      className="btn btn-secondary"
+                      onClick={() => setIsEditing(true)}
+                    >
+                      Editar
+                    </button>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => onDelete(comment.id)}
+                    >
+                      Eliminar
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        );
+      }
+
+      function Pagination({ currentPage, totalPages, onPageChange }) {
+        const getPageNumbers = () => {
+          const pages = [];
+          const maxPagesToShow = 5;
+
+          if (totalPages <= maxPagesToShow) {
+            for (let i = 1; i <= totalPages; i++) {
+              pages.push(i);
+            }
+          } else {
+            if (currentPage <= 3) {
+              for (let i = 1; i <= 4; i++) {
+                pages.push(i);
+              }
+              pages.push("...");
+              pages.push(totalPages);
+            } else if (currentPage >= totalPages - 2) {
+              pages.push(1);
+              pages.push("...");
+              for (let i = totalPages - 3; i <= totalPages; i++) {
+                pages.push(i);
+              }
+            } else {
+              pages.push(1);
+              pages.push("...");
+              for (let i = currentPage - 1; i <= currentPage + 1; i++) {
+                pages.push(i);
+              }
+              pages.push("...");
+              pages.push(totalPages);
+            }
+          }
+
+          return pages;
+        };
+
+        return (
+          <div className="pagination">
+            <button
+              className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
+              onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              &laquo;
+            </button>
+
+            {getPageNumbers().map((page, index) => (
+              <button
+                key={index}
+                className={`page-item ${page === currentPage ? "active" : ""} ${
+                  page === "..." ? "disabled" : ""
+                }`}
+                onClick={() => typeof page === "number" && onPageChange(page)}
+                disabled={page === "..."}
+              >
+                {page}
+              </button>
+            ))}
+
+            <button
+              className={`page-item ${
+                currentPage === totalPages ? "disabled" : ""
+              }`}
+              onClick={() =>
+                currentPage < totalPages && onPageChange(currentPage + 1)
+              }
+              disabled={currentPage === totalPages}
+            >
+              &raquo;
+            </button>
           </div>
         );
       }
 
       function App() {
-        const [comments, setComments] = React.useState([]);
+        const [comments, setComments] = useLocalStorage("comments", []);
+        const [currentUser, setCurrentUser] = useLocalStorage(
+          "currentUser",
+          ""
+        );
+
+        const [currentPage, setCurrentPage] = React.useState(1);
+        const commentsPerPage = 5;
+
+        const totalPages = Math.max(
+          1,
+          Math.ceil(comments.length / commentsPerPage)
+        );
+
+        const getCurrentComments = () => {
+          const indexOfLastComment = currentPage * commentsPerPage;
+          const indexOfFirstComment = indexOfLastComment - commentsPerPage;
+          return comments.slice(indexOfFirstComment, indexOfLastComment);
+        };
+
+        const handlePageChange = (pageNumber) => {
+          setCurrentPage(pageNumber);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        };
+
+        React.useEffect(() => {
+          if (currentPage > totalPages && totalPages > 0) {
+            setCurrentPage(totalPages);
+          }
+        }, [comments.length, totalPages]);
 
         const addComment = (newComment) => {
-          setComments([...comments, newComment]);
+          setComments([newComment, ...comments]);
+          setCurrentPage(1);
+        };
+
+        const editComment = (id, newText) => {
+          setComments(
+            comments.map((comment) =>
+              comment.id === id
+                ? {
+                    ...comment,
+                    text: newText,
+                    edited: true,
+                    timestamp: new Date().toISOString(),
+                  }
+                : comment
+            )
+          );
+        };
+
+        const deleteComment = (id) => {
+          if (
+            window.confirm(
+              "¿Estás seguro de que deseas eliminar este comentario?"
+            )
+          ) {
+            setComments(comments.filter((comment) => comment.id !== id));
+          }
+        };
+
+        const handleLogin = (username) => {
+          setCurrentUser(username);
+        };
+
+        const handleLogout = () => {
+          setCurrentUser("");
         };
 
         return (
           <div>
             <h1>¡Hola, bienvenido a React!</h1>
-            <CommentForm onAddComment={addComment} />
 
-            <div className="comment-list">
+            <AuthComponent
+              onLogin={handleLogin}
+              onLogout={handleLogout}
+              currentUser={currentUser}
+            />
+
+            <CommentForm onAddComment={addComment} currentUser={currentUser} />
+
+            <div className="comment-list container">
               <h2>Comentarios ({comments.length})</h2>
-              {comments.length === 0 && <p>No hay comentarios</p>}
-              {comments.map((comment, index) => (
-                <CommentItem key={index} text={comment} index={index} />
-              ))}
+
+              {comments.length === 0 ? (
+                <div className="empty-state">No hay comentarios</div>
+              ) : (
+                <>
+                  {getCurrentComments().map((comment) => (
+                    <CommentItem
+                      key={comment.id}
+                      comment={comment}
+                      onEdit={editComment}
+                      onDelete={deleteComment}
+                      currentUser={currentUser}
+                    />
+                  ))}
+
+                  {totalPages > 1 && (
+                    <Pagination
+                      currentPage={currentPage}
+                      totalPages={totalPages}
+                      onPageChange={handlePageChange}
+                    />
+                  )}
+                </>
+              )}
             </div>
           </div>
         );
